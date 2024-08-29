@@ -5,15 +5,15 @@ pipeline:
   orgIdentifier: default
   tags: {}
   variables:
-    - name: infra_creat
+    - name: infra_create
       type: String
       required: true
       value: <+input>.default(true).allowedValues(true,false)
-    - name: infra_regio
+    - name: infra_region
       type: String
       required: true
       value: <+input>.default(""ap-south-1"").allowedValues(""us-east-1"",""ap-south-1"")
-    - name: infra_tag
+    - name: infra_tags
       type: String
       value: <+input>
   stages:
@@ -52,9 +52,9 @@ pipeline:
                         - varFile:
                             spec:
                               content: |-
-                                infra_create = <+pipeline.variables.infra_creat>
-                                infra_region = <+pipeline.variables.infra_regio>
-                                infra_tags = <+pipeline.variables.infra_tag>
+                                infra_create = <+pipeline.variables.infra_create>
+                                infra_region = <+pipeline.variables.infra_region>
+                                infra_tags = <+pipeline.variables.infra_tags>
                             identifier: tfvars_variable
                             type: Inline
                       secretManagerRef: harnessSecretManager
@@ -93,14 +93,15 @@ pipeline:
                             connectorRef: connectawsaccount
                             region: ap-south-1
                             roleArn: ""
-                        varFile:
-                          - spec:
-                              content: |
-                                infra_create = <+pipeline.variables.infra_create>
-                                infra_region = <+pipeline.variables.infra_region>
-                                infra_tags = <+pipeline.variables.infra_tags>
-                            identifier: backend_tfvars
-                            type: Inline
+                        varFiles:
+                          - varFile:
+                              spec:
+                                content: |-
+                                  infra_create = <+pipeline.variables.infra_create>
+                                  infra_region = <+pipeline.variables.infra_region>
+                                  infra_tags = <+pipeline.variables.infra_tags>
+                              identifier: tfvars_variable
+                              type: Inline
                   timeout: 10m
         tags: {}
     - stage:
