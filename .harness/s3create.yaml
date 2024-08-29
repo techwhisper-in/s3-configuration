@@ -57,6 +57,7 @@ pipeline:
                               infra_tags = <+pipeline.variables.infra_tag>
                           identifier: backend_tfvars
                           type: Inline
+                          skipRefreshCommand: false
                   timeout: 10m
         tags: {}
     - stage:
