@@ -5,15 +5,15 @@ pipeline:
   orgIdentifier: default
   tags: {}
   variables:
-    - name: infra_create
+    - name: infra_creat
       type: String
       required: true
       value: <+input>.default(true).allowedValues(true,false)
-    - name: infra_region
+    - name: infra_regio
       type: String
       required: true
       value: <+input>.default(ap-south-1).allowedValues(us-east-1,ap-south-1)
-    - name: infra_tags
+    - name: infra_tag
       type: String
       required: true
       value: <+input>
@@ -53,9 +53,9 @@ pipeline:
                       varFile:
                         - spec:
                             content: |
-                              infra_create = <+pipeline.variables.infra_create>
-                              infra_region = <+pipeline.variables.infra_region>
-                              infra_tags = <+pipeline.variables.infra_tags>
+                              infra_create = <+pipeline.variables.infra_creat>
+                              infra_region = <+pipeline.variables.infra_regio>
+                              infra_tags = <+pipeline.variables.infra_tag>
                           identifier: backend_tfvars
                           type: Inline
                   timeout: 10m
