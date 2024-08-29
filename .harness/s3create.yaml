@@ -48,14 +48,17 @@ pipeline:
                           connectorRef: connectawsaccount
                           region: ap-south-1
                           roleArn: ""
-                      backendConfig:
-                        type: Inline
-                        spec:
-                          content: |-
-                            infra_create = <+pipeline.variables.infra_creat>
-                            infra_region = <+pipeline.variables.infra_regio>
-                            infra_tags = <+pipeline.variables.infra_tag>
+                      varFiles:
+                        - varFile:
+                            spec:
+                              content: |-
+                                infra_create = <+pipeline.variables.infra_creat>
+                                infra_region = <+pipeline.variables.infra_regio>
+                                infra_tags = <+pipeline.variables.infra_tag>
+                            identifier: tfvars_variable
+                            type: Inline
                       secretManagerRef: harnessSecretManager
+                      skipRefreshCommand: false
                   timeout: 10m
         tags: {}
     - stage:
