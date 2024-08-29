@@ -12,7 +12,7 @@ pipeline:
     - name: infra_regio
       type: String
       required: true
-      value: <+input>.default('"ap-south-1"').allowedValues('"us-east-1"','"ap-south-1"')
+      value: <+input>.default(""ap-south-1"").allowedValues(""us-east-1"",""ap-south-1"")
     - name: infra_tag
       type: String
       value: <+input>
