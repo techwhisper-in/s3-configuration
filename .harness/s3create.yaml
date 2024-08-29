@@ -4,6 +4,19 @@ pipeline:
   projectIdentifier: myfirstproject
   orgIdentifier: default
   tags: {}
+  variables:
+    - name: infra_create
+      type: String
+      required: true
+      value: <+input>.default(true).allowedValues(true,false)
+    - name: infra_region
+      type: String
+      required: true
+      value: <+input>.default(ap-south-1).allowedValues(us-east-1,ap-south-1)
+    - name: infra_tags
+      type: String
+      required: true
+      value: <+input>
   stages:
     - stage:
         name: Plan
@@ -37,6 +50,13 @@ pipeline:
                           region: ap-south-1
                           roleArn: ""
                       secretManagerRef: harnessSecretManager
+                      varFile:
+                        - varFile: null
+                          spec:
+                            content: |
+                              infra_create = <+pipeline.variables.infra_create>
+                              infra_region = <+pipeline.variables.infra_region>
+                              infra_tags = <+pipeline.variables.infra_tags>
                   timeout: 10m
         tags: {}
     - stage:
@@ -71,6 +91,13 @@ pipeline:
                             connectorRef: connectawsaccount
                             region: ap-south-1
                             roleArn: ""
+                        varFile:
+                          - varFile: null
+                            spec:
+                              content: |
+                                infra_create = <+pipeline.variables.infra_create>
+                                infra_region = <+pipeline.variables.infra_region>
+                                infra_tags = <+pipeline.variables.infra_tags>
                   timeout: 10m
         tags: {}
     - stage:
