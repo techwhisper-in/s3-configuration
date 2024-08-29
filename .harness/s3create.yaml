@@ -40,7 +40,7 @@ pipeline:
                             repoName: s3-configuration
                             gitFetchType: Branch
                             branch: main
-                            folderPath: ""
+                            folderPath: /S3-create/
                           type: Github
                       providerCredential:
                         type: Aws
