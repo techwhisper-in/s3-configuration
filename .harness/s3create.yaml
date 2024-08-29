@@ -1,0 +1,110 @@
+pipeline:
+  name: s3-configuration
+  identifier: s3
+  projectIdentifier: myfirstproject
+  orgIdentifier: default
+  tags: {}
+  stages:
+    - stage:
+        name: Plan
+        identifier: plan
+        description: ""
+        type: Custom
+        spec:
+          execution:
+            steps:
+              - step:
+                  type: TerraformPlan
+                  name: TerraformPlan_1
+                  identifier: TerraformPlan_1
+                  spec:
+                    provisionerIdentifier: main
+                    configuration:
+                      command: Apply
+                      configFiles:
+                        store:
+                          spec:
+                            connectorRef: connect_to_techwhisperin
+                            repoName: s3-configuration
+                            gitFetchType: Branch
+                            branch: main
+                            folderPath: ""
+                          type: Github
+                      providerCredential:
+                        type: Aws
+                        spec:
+                          connectorRef: connectawsaccount
+                          region: ap-south-1
+                          roleArn: ""
+                      secretManagerRef: harnessSecretManager
+                  timeout: 10m
+        tags: {}
+    - stage:
+        name: Apply
+        identifier: Apply
+        description: ""
+        type: Custom
+        spec:
+          execution:
+            steps:
+              - step:
+                  type: TerraformApply
+                  name: TerraformApply_1
+                  identifier: TerraformApply_1
+                  spec:
+                    provisionerIdentifier: main
+                    configuration:
+                      type: Inline
+                      spec:
+                        configFiles:
+                          store:
+                            spec:
+                              connectorRef: connect_to_techwhisperin
+                              repoName: s3-configuration
+                              gitFetchType: Branch
+                              branch: main
+                              folderPath: ""
+                            type: Github
+                        providerCredential:
+                          type: Aws
+                          spec:
+                            connectorRef: connectawsaccount
+                            region: ap-south-1
+                            roleArn: ""
+                  timeout: 10m
+        tags: {}
+    - stage:
+        name: Destroy
+        identifier: Destroy
+        description: ""
+        type: Custom
+        spec:
+          execution:
+            steps:
+              - step:
+                  type: TerraformDestroy
+                  name: TerraformDestroy_1
+                  identifier: TerraformDestroy_1
+                  spec:
+                    provisionerIdentifier: main
+                    configuration:
+                      type: Inline
+                      spec:
+                        configFiles:
+                          store:
+                            spec:
+                              connectorRef: connect_to_techwhisperin
+                              repoName: s3-configuration
+                              gitFetchType: Branch
+                              branch: main
+                              folderPath: ""
+                            type: Github
+                        providerCredential:
+                          type: Aws
+                          spec:
+                            connectorRef: connectawsaccount
+                            region: ap-south-1
+                            roleArn: ""
+                  timeout: 10m
+        tags: {}
+  allowStageExecutions: true
