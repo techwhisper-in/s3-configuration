@@ -15,7 +15,6 @@ pipeline:
       value: <+input>.default(ap-south-1).allowedValues(us-east-1,ap-south-1)
     - name: infra_tag
       type: String
-      required: true
       value: <+input>
   stages:
     - stage:
