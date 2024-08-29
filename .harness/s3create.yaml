@@ -51,8 +51,7 @@ pipeline:
                           roleArn: ""
                       secretManagerRef: harnessSecretManager
                       varFile:
-                        - varFile: null
-                          spec:
+                        - spec:
                             content: |
                               infra_create = <+pipeline.variables.infra_create>
                               infra_region = <+pipeline.variables.infra_region>
@@ -92,8 +91,7 @@ pipeline:
                             region: ap-south-1
                             roleArn: ""
                         varFile:
-                          - varFile: null
-                            spec:
+                          - spec:
                               content: |
                                 infra_create = <+pipeline.variables.infra_create>
                                 infra_region = <+pipeline.variables.infra_region>
