@@ -20,7 +20,7 @@ pipeline:
     - name: Stage_to_Run
       type: String
       required: true
-      value: <+input>.default("plan").allowedValues("plan","apply","destroy")
+      value: <+input>.default(plan).allowedValues(plan,apply,destroy)
   stages:
     - stage:
         name: Plan
