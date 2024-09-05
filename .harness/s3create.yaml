@@ -48,7 +48,7 @@ pipeline:
                         spec:
                           connectorRef: <+input>
                           region: ap-south-1
-                          roleArn: ""
+                          roleArn: arn:aws:iam::590183834329:role/operation_role_for_execution_user
                       varFiles:
                         - varFile:
                             spec:
