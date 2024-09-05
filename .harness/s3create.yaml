@@ -17,6 +17,10 @@ pipeline:
       type: String
       required: true
       value: <+input>.default({})
+    - name: Stage_to_Run
+      type: String
+      required: true
+      value: <+input>.default("plan").allowedValues("plan","apply","destroy")
   stages:
     - stage:
         name: Plan
@@ -62,6 +66,9 @@ pipeline:
                       skipRefreshCommand: false
                   timeout: 10m
         tags: {}
+        when:
+          pipelineStatus: Success
+          condition: <+pipeline.variables.Stage_to_Run> == "plan"
     - stage:
         name: Apply
         identifier: Apply
@@ -105,6 +112,9 @@ pipeline:
                               type: Inline
                   timeout: 10m
         tags: {}
+        when:
+          pipelineStatus: Success
+          condition: <+pipeline.variables.Stage_to_Run> == "apply"
     - stage:
         name: Destroy
         identifier: Destroy
@@ -139,4 +149,6 @@ pipeline:
                             roleArn: arn:aws:iam::590183834329:role/operation_role_for_execution_user
                   timeout: 10m
         tags: {}
-  allowStageExecutions: true
+        when:
+          pipelineStatus: Success
+          condition: <+pipeline.variables.Stage_to_Run> == "destroy"
