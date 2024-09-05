@@ -5,6 +5,10 @@ pipeline:
   orgIdentifier: default
   tags: {}
   variables:
+    - name: Stage_to_Run
+      type: String
+      required: true
+      value: <+input>.default("plan").allowedValues("plan","apply","destroy")
     - name: infra_create
       type: String
       required: true
@@ -17,10 +21,6 @@ pipeline:
       type: String
       required: true
       value: <+input>.default({})
-    - name: Stage_to_Run
-      type: String
-      required: true
-      value: <+input>.default("plan").allowedValues("plan","apply","destroy")
   stages:
     - stage:
         name: Plan
