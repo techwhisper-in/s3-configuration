@@ -67,7 +67,7 @@ pipeline:
                   timeout: 10m
         tags: {}
       when:
-        expression: <+pipeline.variables.Stage_to_Run> == "plan"
+        condition: <+pipeline.variables.Stage_to_Run> == "plan"
     - stage:
         name: Apply
         identifier: Apply
@@ -112,7 +112,7 @@ pipeline:
                   timeout: 10m
         tags: {}
       when:
-        expression: <+pipeline.variables.Stage_to_Run> == "apply"
+        condition: <+pipeline.variables.Stage_to_Run> == "apply"
     - stage:
         name: Destroy
         identifier: Destroy
@@ -148,4 +148,4 @@ pipeline:
                   timeout: 10m
         tags: {}
       when:
-        expression: <+pipeline.variables.Stage_to_Run> == "destroy"
+        condition: <+pipeline.variables.Stage_to_Run> == "destroy"
