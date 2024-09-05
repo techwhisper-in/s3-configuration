@@ -46,7 +46,7 @@ pipeline:
                       providerCredential:
                         type: Aws
                         spec:
-                          connectorRef: connectawsaccount
+                          connectorRef: <+input>
                           region: ap-south-1
                           roleArn: ""
                       varFiles:
@@ -91,7 +91,7 @@ pipeline:
                         providerCredential:
                           type: Aws
                           spec:
-                            connectorRef: connectawsaccount
+                            connectorRef: <+input>
                             region: ap-south-1
                             roleArn: ""
                         varFiles:
@@ -134,7 +134,7 @@ pipeline:
                         providerCredential:
                           type: Aws
                           spec:
-                            connectorRef: connectawsaccount
+                            connectorRef: <+input>
                             region: ap-south-1
                             roleArn: ""
                   timeout: 10m
