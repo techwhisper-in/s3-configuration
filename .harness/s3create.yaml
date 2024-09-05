@@ -20,7 +20,7 @@ pipeline:
     - name: Stage_to_Run
       type: String
       required: true
-      value: <+input>.default("'plan'").allowedValues("'plan'","'apply'","'destroy'")
+      value: <+input>.default("plan").allowedValues("plan","apply","destroy")
   stages:
     - stage:
         name: Plan
@@ -67,8 +67,7 @@ pipeline:
                   timeout: 10m
         tags: {}
       when:
-        expression: |
-          ${pipeline.variables.Stage_to_Run == 'plan'}
+        expression: <+pipeline.variables.Stage_to_Run> == "plan"
     - stage:
         name: Apply
         identifier: Apply
@@ -113,8 +112,7 @@ pipeline:
                   timeout: 10m
         tags: {}
       when:
-        expression: |
-          ${pipeline.variables.Stage_to_Run == 'apply'}
+        expression: <+pipeline.variables.Stage_to_Run> == "apply"
     - stage:
         name: Destroy
         identifier: Destroy
@@ -150,5 +148,4 @@ pipeline:
                   timeout: 10m
         tags: {}
       when:
-        expression: |
-          ${pipeline.variables.Stage_to_Run == 'destroy'}
+        expression: <+pipeline.variables.Stage_to_Run> == "destroy"
