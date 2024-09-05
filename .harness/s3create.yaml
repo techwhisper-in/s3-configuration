@@ -68,7 +68,7 @@ pipeline:
         tags: {}
       when:
         expression: |
-          ${<+pipeline.variables.Stage_to_Run> == 'plan'}
+          ${pipeline.variables.Stage_to_Run == 'plan'}
     - stage:
         name: Apply
         identifier: Apply
@@ -114,7 +114,7 @@ pipeline:
         tags: {}
       when:
         expression: |
-          ${<+pipeline.variables.Stage_to_Run> == 'apply'}
+          ${pipeline.variables.Stage_to_Run == 'apply'}
     - stage:
         name: Destroy
         identifier: Destroy
@@ -151,4 +151,4 @@ pipeline:
         tags: {}
       when:
         expression: |
-          ${<+pipeline.variables.Stage_to_Run> == 'destroy'}
+          ${pipeline.variables.Stage_to_Run == 'destroy'}
