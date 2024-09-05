@@ -17,18 +17,10 @@ pipeline:
       type: String
       required: true
       value: <+input>.default({})
-    - name: Run_Plan
+    - name: Stage_to_Run
       type: String
       required: true
-      value: <+input>.default(true).allowedValues(true,false)
-    - name: Run_Apply
-      type: String
-      required: true
-      value: <+input>.default(true).allowedValues(true,false)
-    - name: Run_Destroy
-      type: String
-      required: true
-      value: <+input>.default(true).allowedValues(true,false)
+      value: <+input>.default("'plan'").allowedValues("'plan'","'apply'","'destroy'")
   stages:
     - stage:
         name: Plan
@@ -76,7 +68,7 @@ pipeline:
         tags: {}
       when:
         expression: |
-          ${<+pipeline.variables.Run_Plan> == 'true' && <+pipeline.variables.Run_Apply> == 'false' && <+pipeline.pipeline.variables.Run_Destroy> == 'false'}
+          ${<+pipeline.variables.Stage_to_Run> == 'plan'}
     - stage:
         name: Apply
         identifier: Apply
@@ -122,7 +114,7 @@ pipeline:
         tags: {}
       when:
         expression: |
-          ${<+pipeline.variables.Run_Plan> == 'false' && <+pipeline.variables.Run_Apply> == 'true' && <+pipeline.pipeline.variables.Run_Destroy> == 'false'}
+          ${<+pipeline.variables.Stage_to_Run> == 'apply'}
     - stage:
         name: Destroy
         identifier: Destroy
@@ -159,4 +151,4 @@ pipeline:
         tags: {}
       when:
         expression: |
-          ${<+pipeline.variables.Run_Plan> == 'false' && <+pipeline.variables.Run_Apply> == 'false' && <+pipeline.pipeline.variables.Run_Destroy> == 'true'}
+          ${<+pipeline.variables.Stage_to_Run> == 'destroy'}
