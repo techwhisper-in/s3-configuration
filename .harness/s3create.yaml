@@ -17,6 +17,18 @@ pipeline:
       type: String
       required: true
       value: <+input>.default({})
+    - name: Run_Plan
+      type: String
+      required: true
+      value: <+input>.default(true).allowedValues(true,false)
+    - name: Run_Apply
+      type: String
+      required: true
+      value: <+input>.default(true).allowedValues(true,false)
+    - name: Run_Destroy
+      type: String
+      required: true
+      value: <+input>.default(true).allowedValues(true,false)
   stages:
     - stage:
         name: Plan
@@ -62,6 +74,9 @@ pipeline:
                       skipRefreshCommand: false
                   timeout: 10m
         tags: {}
+      when:
+        expression: |
+          ${<+pipeline.variables.Run_Plan> == 'true' && <+pipeline.variables.Run_Apply> == 'false' && <+pipeline.pipeline.variables.Run_Destroy> == 'false'}
     - stage:
         name: Apply
         identifier: Apply
@@ -93,7 +108,7 @@ pipeline:
                           spec:
                             connectorRef: <+input>
                             region: ap-south-1
-                            roleArn: ""
+                            roleArn: arn:aws:iam::590183834329:role/operation_role_for_execution_user
                         varFiles:
                           - varFile:
                               spec:
@@ -105,6 +120,9 @@ pipeline:
                               type: Inline
                   timeout: 10m
         tags: {}
+      when:
+        expression: |
+          ${<+pipeline.variables.Run_Plan> == 'false' && <+pipeline.variables.Run_Apply> == 'true' && <+pipeline.pipeline.variables.Run_Destroy> == 'false'}
     - stage:
         name: Destroy
         identifier: Destroy
@@ -136,7 +154,9 @@ pipeline:
                           spec:
                             connectorRef: <+input>
                             region: ap-south-1
-                            roleArn: ""
+                            roleArn: arn:aws:iam::590183834329:role/operation_role_for_execution_user
                   timeout: 10m
         tags: {}
-  allowStageExecutions: true
+      when:
+        expression: |
+          ${<+pipeline.variables.Run_Plan> == 'false' && <+pipeline.variables.Run_Apply> == 'false' && <+pipeline.pipeline.variables.Run_Destroy> == 'true'}
