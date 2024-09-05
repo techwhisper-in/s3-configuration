@@ -76,7 +76,7 @@ pipeline:
         tags: {}
       when:
         expression: |
-          ${pipeline.variables.Run_Plan == 'true' && pipeline.variables.Run_Apply == 'false' && pipeline.pipeline.variables.Run_Destroy == 'false'}
+          ${<+pipeline.variables.Run_Plan> == 'true' && <+pipeline.variables.Run_Apply> == 'false' && <+pipeline.pipeline.variables.Run_Destroy> == 'false'}
     - stage:
         name: Apply
         identifier: Apply
@@ -122,7 +122,7 @@ pipeline:
         tags: {}
       when:
         expression: |
-          ${pipeline.variables.Run_Plan == 'false' && pipeline.variables.Run_Apply == 'true' && pipeline.pipeline.variables.Run_Destroy == 'false'}
+          ${<+pipeline.variables.Run_Plan> == 'false' && <+pipeline.variables.Run_Apply> == 'true' && <+pipeline.pipeline.variables.Run_Destroy> == 'false'}
     - stage:
         name: Destroy
         identifier: Destroy
@@ -159,4 +159,4 @@ pipeline:
         tags: {}
       when:
         expression: |
-          ${pipeline.variables.Run_Plan == 'false' && pipeline.variables.Run_Apply == 'false' && pipeline.pipeline.variables.Run_Destroy == 'true'}
+          ${<+pipeline.variables.Run_Plan> == 'false' && <+pipeline.variables.Run_Apply> == 'false' && <+pipeline.pipeline.variables.Run_Destroy> == 'true'}
