@@ -8,7 +8,7 @@ pipeline:
     - name: Stage_to_Run
       type: String
       required: true
-      value: <+input>.default("plan").allowedValues("plan","apply","destroy")
+      value: <+input>.default(Plan).allowedValues(Plan,Apply,Destroy)
     - name: infra_create
       type: String
       required: true
@@ -68,7 +68,7 @@ pipeline:
         tags: {}
         when:
           pipelineStatus: Success
-          condition: <+pipeline.variables.Stage_to_Run> == "plan"
+          condition: <+pipeline.variables.Stage_to_Run> == Plan
     - stage:
         name: Apply
         identifier: Apply
@@ -114,7 +114,7 @@ pipeline:
         tags: {}
         when:
           pipelineStatus: Success
-          condition: <+pipeline.variables.Stage_to_Run> == "apply"
+          condition: <+pipeline.variables.Stage_to_Run> == Apply
     - stage:
         name: Destroy
         identifier: Destroy
@@ -151,4 +151,4 @@ pipeline:
         tags: {}
         when:
           pipelineStatus: Success
-          condition: <+pipeline.variables.Stage_to_Run> == "destroy"
+          condition: <+pipeline.variables.Stage_to_Run> == Destroy
