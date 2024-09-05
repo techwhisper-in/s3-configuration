@@ -3,6 +3,7 @@ pipeline:
   identifier: s3
   projectIdentifier: myfirstproject
   orgIdentifier: default
+  connectorRef: <+input>
   tags: {}
   variables:
     - name: Stage_to_Run
