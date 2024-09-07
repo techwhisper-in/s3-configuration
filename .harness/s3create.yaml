@@ -183,6 +183,17 @@ pipeline:
                               bucket = "techwhisper-ami-snapshot-ebs-volume-inventory"
                               key = "file/create-s3.tfstate"
                               region = "<+pipeline.variables.statefile_bucket_region>"
+                        varFiles:
+                          - varFile:
+                              spec:
+                                content: |-
+                                  assume_role_arn = "arn:aws:iam::<+pipeline.variables.aws_account_number>:role/operation_role_for_execution_user"
+                                  infra_create = <+pipeline.variables.infra_create>
+                                  infra_account = "<+pipeline.variables.aws_account_number>"
+                                  infra_region = "<+pipeline.variables.infra_region>"
+                                  infra_tags = <+pipeline.variables.infra_tags>
+                              identifier: trfvars
+                              type: Inline
                   timeout: 10m
         tags: {}
         when:
