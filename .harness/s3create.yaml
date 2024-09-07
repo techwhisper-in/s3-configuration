@@ -123,9 +123,10 @@ pipeline:
                           type: Inline
                           spec:
                             content: |-
+                              role_arn = "arn:aws:iam::<+pipeline.variables.aws_account_number>:role/operation_role_for_execution_user"
                               bucket = "techwhisper-ami-snapshot-ebs-volume-inventory"
                               key = "file/create-s3.tfstate"
-                              region = "ap-south-1"
+                              region = "<+pipeline.variables.statefile_bucket_region>"
                         varFiles:
                           - varFile:
                               spec:
@@ -176,9 +177,10 @@ pipeline:
                           type: Inline
                           spec:
                             content: |-
+                              role_arn = "arn:aws:iam::<+pipeline.variables.aws_account_number>:role/operation_role_for_execution_user"
                               bucket = "techwhisper-ami-snapshot-ebs-volume-inventory"
                               key = "file/create-s3.tfstate"
-                              region = "ap-south-1"
+                              region = "<+pipeline.variables.statefile_bucket_region>"
                   timeout: 10m
         tags: {}
         when:
