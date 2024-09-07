@@ -4,12 +4,6 @@ pipeline:
   projectIdentifier: myfirstproject
   orgIdentifier: default
   tags: {}
-  spec:
-    configuration:
-      providerCredential:
-        type: Aws
-        spec:
-          connectorRef: <+input>
   variables:
     - name: Stage_to_Run
       type: String
