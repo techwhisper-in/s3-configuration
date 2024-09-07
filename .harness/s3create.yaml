@@ -73,7 +73,7 @@ pipeline:
                         - varFile:
                             spec:
                               content: |-
-                                assume_role = "arn:aws:iam::<+pipeline.variables.aws_account_number>:role/operation_role_for_execution_user"
+                                assume_role_arn = "arn:aws:iam::<+pipeline.variables.aws_account_number>:role/operation_role_for_execution_user"
                                 infra_create = <+pipeline.variables.infra_create>
                                 infra_region = "<+pipeline.variables.infra_region>"
                                 infra_tags = <+pipeline.variables.infra_tags>
