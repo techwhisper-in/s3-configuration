@@ -8,6 +8,9 @@ variable "Reg" {
   default     = "us-east-1"
   description = "Region where resource to be deployed"
 }
+variable "infra_account" {
+  type = string
+}
 variable "infra_tags" {
   type = map(any)
   default = {
