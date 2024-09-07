@@ -4,13 +4,12 @@ pipeline:
   projectIdentifier: myfirstproject
   orgIdentifier: default
   tags: {}
-  configuration:
-    providerCredential:
-      type: Aws
-      spec:
-        connectorRef: <+input>
-        region: <pipeline.variables.infra_region>
-        roleArn: ""
+  providerCredential:
+    type: Aws
+    spec:
+      connectorRef: <+input>
+      region: <pipeline.variables.infra_region>
+      roleArn: ""
   variables:
     - name: Stage_to_Run
       type: String
