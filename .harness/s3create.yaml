@@ -59,8 +59,8 @@ pipeline:
                         type: Aws
                         spec:
                           connectorRef: <+input>
-                          region: ap-south-1
-                          roleArn: arn:aws:iam::<+pipeline.variables.aws_account_number>:role/operation_role_for_execution_user
+                          region: <pipeline.variables.infra_region>
+                          roleArn: ""
                       backendConfig:
                         type: Inline
                         spec:
