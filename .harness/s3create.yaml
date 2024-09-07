@@ -4,6 +4,13 @@ pipeline:
   projectIdentifier: myfirstproject
   orgIdentifier: default
   tags: {}
+  configuration:
+    providerCredential:
+      type: Aws
+      spec:
+        connectorRef: <+input>
+        region: <pipeline.variables.infra_region>
+        roleArn: ""
   variables:
     - name: Stage_to_Run
       type: String
@@ -55,12 +62,6 @@ pipeline:
                             branch: main
                             folderPath: S3-create
                           type: Github
-                      providerCredential:
-                        type: Aws
-                        spec:
-                          connectorRef: <+input>
-                          region: <pipeline.variables.infra_region>
-                          roleArn: ""
                       backendConfig:
                         type: Inline
                         spec:
