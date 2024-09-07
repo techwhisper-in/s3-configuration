@@ -6,9 +6,12 @@ terraform {
       version = "~> 4.33"
     }
   }
+  
 }
 
 provider "aws" {
-  region = "ap-south-1"
-
+  region = var.infra_region
+  assume_role {
+    role_arn = var.assume_role_arn
+  }
 }

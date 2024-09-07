@@ -17,10 +17,14 @@ pipeline:
       type: String
       required: true
       value: <+input>.default(590183834329)
+    - name: statefile_bucket_region
+      type: String
+      required: true
+      value: <+input>.default(ap-south-1).allowedValues(us-east-1,ap-south-1)
     - name: infra_region
       type: String
       required: true
-      value: <+input>.default(""ap-south-1"").allowedValues(""us-east-1"",""ap-south-1"")
+      value: <+input>.default("ap-south-1").allowedValues("us-east-1","ap-south-1")
     - name: infra_tags
       type: String
       required: true
@@ -61,15 +65,17 @@ pipeline:
                         type: Inline
                         spec:
                           content: |-
+                            role_arn = "arn:aws:iam::<+pipeline.variables.aws_account_number>:role/operation_role_for_execution_user"
                             bucket = "techwhisper-ami-snapshot-ebs-volume-inventory"
                             key = "file/create-s3.tfstate"
-                            region = "ap-south-1"
+                            region = "<+pipeline.variables.statefile_bucket_region>"
                       varFiles:
                         - varFile:
                             spec:
                               content: |-
+                                assume_role = "arn:aws:iam::<+pipeline.variables.aws_account_number>:role/operation_role_for_execution_user"
                                 infra_create = <+pipeline.variables.infra_create>
-                                infra_region = <+pipeline.variables.infra_region>
+                                infra_region = "<+pipeline.variables.infra_region>"
                                 infra_tags = <+pipeline.variables.infra_tags>
                             identifier: tfvars_variable
                             type: Inline
