@@ -57,6 +57,13 @@ pipeline:
                           connectorRef: <+input>
                           region: ap-south-1
                           roleArn: arn:aws:iam::<+pipeline.variables.aws_account_number>:role/operation_role_for_execution_user
+                      backendConfig:
+                        type: Inline
+                        spec:
+                          content: |-
+                            bucket = "techwhisper-ami-snapshot-ebs-volume-inventory"
+                            key = "file/create-s3.tfstate"
+                            region = "ap-south-1"
                       varFiles:
                         - varFile:
                             spec:
@@ -105,6 +112,13 @@ pipeline:
                             connectorRef: <+input>
                             region: ap-south-1
                             roleArn: arn:aws:iam::<+pipeline.variables.aws_account_number>:role/operation_role_for_execution_user
+                        backendConfig:
+                          type: Inline
+                          spec:
+                            content: |-
+                              bucket = "techwhisper-ami-snapshot-ebs-volume-inventory"
+                              key = "file/create-s3.tfstate"
+                              region = "ap-south-1"
                         varFiles:
                           - varFile:
                               spec:
@@ -151,6 +165,13 @@ pipeline:
                             connectorRef: <+input>
                             region: ap-south-1
                             roleArn: arn:aws:iam::<+pipeline.variables.aws_account_number>:role/operation_role_for_execution_user
+                        backendConfig:
+                          type: Inline
+                          spec:
+                            content: |-
+                              bucket = "techwhisper-ami-snapshot-ebs-volume-inventory"
+                              key = "file/create-s3.tfstate"
+                              region = "ap-south-1"
                   timeout: 10m
         tags: {}
         when:
