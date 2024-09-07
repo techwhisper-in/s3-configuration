@@ -4,6 +4,8 @@ pipeline:
   projectIdentifier: myfirstproject
   orgIdentifier: default
   tags: {}
+  spec:
+    connectorRef: <+input>
   variables:
     - name: Stage_to_Run
       type: String
@@ -29,13 +31,6 @@ pipeline:
       type: String
       required: true
       value: <+input>.default({})
-    - name: connector_Ref
-      identifier: connector
-      type: String
-      required: true
-      spec:
-        connectorRef: <+input>
-      value: <+spec.connectorRef>
   stages:
     - stage:
         name: Plan
