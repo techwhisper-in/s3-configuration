@@ -5,7 +5,11 @@ pipeline:
   orgIdentifier: default
   tags: {}
   spec:
-    connectorRef: <+input>
+    configuration:
+      providerCredential:
+        type: Aws
+        spec:
+          connectorRef: <+input>
   variables:
     - name: Stage_to_Run
       type: String
