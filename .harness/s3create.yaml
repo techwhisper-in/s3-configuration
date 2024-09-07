@@ -24,7 +24,7 @@ pipeline:
     - name: infra_region
       type: String
       required: true
-      value: <+input>.default("ap-south-1").allowedValues("us-east-1","ap-south-1")
+      value: <+input>.default(ap-south-1).allowedValues(us-east-1,ap-south-1)
     - name: infra_tags
       type: String
       required: true
