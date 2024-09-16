@@ -1,9 +1,9 @@
 module "S3" {
-  #count = var.infra_create=="true" ? 1 : 0
   source     = "../modules/s3_bucket"
-  infra_account = var.infra_account
-  Reg        = var.infra_region
+  bucket_name = var.bucket_name
+  infra_region = var.infra_region
   infra_tags = var.infra_tags
-  infra_create = var.infra_create
+  aws_account_id = var.aws_account_id
+  kms_key_arn = var.kms_key_arn
   assume_role_arn = var.assume_role_arn
 }

@@ -1,15 +1,20 @@
-variable "infra_create" {
-  type        = bool
-  description = "Value should be true to create infra"
-  default     = false
+variable "bucket_name" {
+  type = string
+  description = "S3 bucket name to be created"
 }
-variable "Reg" {
+variable "infra_region" {
   type        = string
   default     = "us-east-1"
   description = "Region where resource to be deployed"
 }
-variable "infra_account" {
+variable "aws_account_id" {
   type = string
+  description = "AWS account id where infra will be created"
+}
+variable "kms_key_arn" {
+  type = string
+  default = ""
+  description = "KMS key ARN for encrypt/decrypt of bucket resources "
 }
 variable "infra_tags" {
   type = map(any)
@@ -19,4 +24,5 @@ variable "infra_tags" {
 }
 variable "assume_role_arn" {
   type = string
+  description = "The role arn that has access to create resource"
 }
